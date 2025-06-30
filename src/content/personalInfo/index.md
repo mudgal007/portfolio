@@ -13,7 +13,8 @@ heroImageMobile: /assets/hero-mobile.png
 # heroImageTransparent: /assets/hero-new.png
 based: India
 trustedBy: Trusted By Fortune 500 Companies
-homePage: Home Page 1
+homePage: Home Page 2
+
 
 achievements:
   # - number: 50+
