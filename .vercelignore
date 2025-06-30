@@ -1,0 +1,4 @@
+tina/
+node_modules/@tinacms/
+node_modules/better-sqlite3/
+.vercel 
