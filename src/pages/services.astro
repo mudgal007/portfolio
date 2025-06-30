@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+const sevicesCard = await getCollection("servicesCard");
+const services = await getCollection("services");
+---
+
+<Layout title="Welcome to Astro.">
+  <div class="mx-auto my-auto p-3 md:p-6 lg:p-12">
+    <div class="flex flex-col items-center">
+      <div class="grid gap-4 md:grid-cols-3 md:gap-12">
+        <div class="col-span-1 row-span-2 mb-6 md:m-0">
+          <div
+            class="md:transition-all md:duration-1000 prose prose-invert"
+            style="transition-delay: 200ms;"
+          >
+            <div class="-mx-3 -mt-3 md:m-0">
+              <div
+                class="bg-gradient-to-b from-omega-800 to-omega-800 p-6 pb-2 md:bg-none md:p-0"
+              >
+                <h3 class="!mt-0">{services[0]?.data?.text1}</h3><h3>
+                  <em
+                    class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500"
+                    >{services[0]?.data?.text2}</em
+                  >
+                </h3>
+              </div>
+              <div
+                class="h-px w-full bg-gradient-to-r from-accent via-beta to-alpha md:bg-none"
+              >
+              </div>
+            </div>
+            <div class="text-[1.125rem] md:text-[1.25rem] font-bold">{services[0]?.data?.text3}</div><p>
+              {services[0]?.data?.description}
+            </p>
+            {services[0]?.data?.listOfContent?.map((ele) =>{
+              return(
+              <div class="wrap-services">
+              <div class="text-[1.125rem] md:text-[1.25rem] font-bold">{ele?.Title}</div>
+              <ul>
+                {ele?.subTitles?.map((ele) =>{
+                  return(
+                    <li>{ele?.subTitleName}</li>
+                  );
+                })}
+              </ul>
+            </div>
+              )
+            })}            
+            <div class="my-6 md:my-12"></div><a
+              class="relative inline-flex items-center justify-center leading-normal no-underline group cursor-pointer select-none focus:outline-none peer md:peer-even:ml-6"
+              href="/contact"
+              ><div
+                class="z-10 h-full w-full border-4 border-transparent group-active:border-alpha flex transform-gpu transition-transform not-prose font-mono py-3 px-6 text-sm hover:translate-x-2 hover:translate-y-2 bg-white text-black"
+              >
+                <span class="mx-auto"><p>Get Free Price Quote</p></span>
+              </div><div
+                class="absolute h-full w-full bg-gradient-to-r from-alpha via-alpha-300 to-beta top-2 left-2"
+              >
+              </div></a
+            >
+          </div>
+        </div>
+        {sevicesCard?.map((ele) => ele?.data)?.map((e) =>{
+          return(
+          <div class="md:transition-all md:duration-1000 prose bg-white">
+          <div
+            class="align-center flex flex-col !bg-gradient-to-r !from-red-500 !via-pink-500 !to-purple-500 p-8"
+          >
+          <img src={e?.image} alt="log" class="relative z-10 mb-6 h-12 w-12 fill-accent !mt-0"/>  
+          <h4 class="relative z-10 m-0">{e?.serviceName}</h4>
+          </div><div class="p-8 pt-3">
+            <small class="!text-[1rem] !font-medium"
+              ><p class="!leading-6">
+                {e?.description}
+              </p>
+              <ul>
+                {e?.bulletPoints?.map((element) =>{
+                  return(
+                    <li>
+                    <strong>{element?.bulletPointName}</strong>
+                  </li>
+                )
+                })}
+              </ul>
+              </small>
+          </div>
+        </div>
+          )
+        })}
+      </div>
+    </div>
+  </div>
+</Layout>

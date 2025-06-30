@@ -1,0 +1,81 @@
+---
+
+const {indexData} = Astro.props;
+
+---
+
+  <div class="mx-auto my-auto p-4 md:p-10 lg:p-20">
+    <div class="items-center text-center md:flex md:text-left">
+      <div class="inline-block shrink-0 md:order-2 md:-ml-40">
+        <div class="with-back-plate hidden md:block relative">
+          <div class="relative overflow-hidden">
+            <div class="absolute left-0 top-0 z-10 hidden h-full w-[120%] bg-omega-900 origin-bottom skew-x-6 transform-gpu transition-transform duration-700 md:block -translate-x-full"></div>
+            <img alt="my photo"   src={indexData[0].data.heroImage} width="500" height="718" decoding="async" data-nimg="1" class="md:transform-gpu md:transition-all md:duration-700 z-20 relative" style="color: transparent;">
+          </div>
+
+          <div class="h-[100%] w-[100%] bg-white absolute  left-[8px] top-[8px] hidden md:block">                            
+          </div>
+        </div>
+        <div class="with-back-plate md:hidden">
+          <div class="relative overflow-hidden">
+            <div class="absolute left-0 top-0 z-10 hidden h-full w-[120%] bg-omega-900 origin-bottom skew-x-6 transform-gpu transition-transform duration-700 md:block -translate-x-full"></div>
+            <img alt="my photo" src={indexData[0].data.heroImageMobile} width="200" height="200" decoding="async" data-nimg="1" class="md:transform-gpu md:transition-all md:duration-700" style="color: transparent;">
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 basis-full md:m-0">
+        <div class="md:transition-all md:duration-1000 md:mr-52 text-[2.25rem] md:text-[3.75rem] font-bold leading-10 md:leading-none prose-headings:my-4 first-of-type:prose-headings:mt-0 prose-p:hidden md:prose-headings:my-6 md:prose-p:block">
+          <h1>
+            <div class="m-0 inline-flex items-baseline font-mono">
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="hidden shrink-0 grow-0 self-center text-omega-500 md:block" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path fill="none" stroke-linecap="square" stroke-miterlimit="10" stroke-width="48" d="M184 112l144 144-144 144"></path>
+              </svg>
+              <span class="animate-typewriter overflow-hidden whitespace-nowrap text-white ">{indexData[0].data.name}</span>
+              <div class="ml-2 -translate-y-2 animate-blink text-white">_</div>
+            </div>
+          </h1>
+          <h1><span class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">{indexData[0].data.title1}</span> <span class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">&amp;</span> <span class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">{indexData[0].data.title2}</span></h1>
+          <div class="my-6 md:my-12"></div>
+          <p class="text-[1.125rem] leading-7 text-white font-normal">{indexData[0].data.description}</p>
+        </div>
+        <div class="md:transition-all md:duration-1000  relative  flex flex-wrap md:mt-12 md:bg-[#252527] md:shadow-2xl" style="z-index: 30;">
+          <div class="h-px w-full bg-gradient-to-r from-accent via-beta to-alpha hidden md:block"></div>
+          {indexData[0]?.data?.achievements?.map((ele, index) =>{
+            return(<div class={`flex flex-1 flex-col items-center justify-center px-1 py-4 md:flex-row md:justify-start md:p-6 ${index > 2 ? "hidden" :"block"}`}>
+            <h2 class="m-0 md:pr-4 text-accent text-[2rem] md:text-[3rem] leading-none font-bold">{ele?.number}</h2>
+            <div class="text-white">{ele?.text}</div>
+          </div>);
+          })}
+        </div>
+        <div class="prose prose-invert mt-6 md:mt-12">
+          <a class="relative inline-flex items-center justify-center leading-normal no-underline group cursor-pointer select-none focus:outline-none peer md:peer-even:ml-6" href={indexData[0]?.data?.resume}
+          download>
+            <div class="z-10 h-full w-full border-4 border-transparent group-active:border-alpha flex transform-gpu transition-transform not-prose font-mono py-5 px-10 text-lg hover:translate-x-2 hover:translate-y-2 bg-white text-black">
+              <span class="mx-auto">
+                <p class="text-[1rem] md:text-[1.125rem]">Download Resume</p>
+              </span>
+            </div>
+            <div class="absolute h-full w-full bg-gradient-to-r from-alpha via-alpha-300 to-beta top-2 left-2"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 mt-12 hidden px-4 md:block">
+      <div class="flex h-12 flex-wrap items-center justify-between">
+        <div class="mb-4 w-full lg:mb-0 lg:w-auto text-white text-[1.875rem] leading-9 font-bold">Trusted By</div>
+        {
+          indexData[0]?.data?.clientsLogo?.map((ele) => {
+            return (
+              <div class="md:transition-all md:duration-1000">
+                <img
+                  src={ele?.src}
+                  alt={ele?.alt}
+                  class="h-12 w-36 fill-current text-omega-500"
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>

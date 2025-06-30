@@ -1,0 +1,122 @@
+---
+const {indexData} = Astro.props;
+---
+
+
+<div class="mx-auto my-auto">
+    <div class="items-center py-10 md:p-10 lg:p-20">
+      <div class="text-center">
+        <div class="relative mx-auto w-full text-center">
+          <div
+            class="md:transition-all md:duration-1000 absolute -bottom-4 left-1/2 z-20 w-full -translate-x-1/2"
+            style="transition-delay: 1000ms;"
+          >
+            <h1
+              class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text m-0 text-7xl drop-shadow-md md:text-8xl font-bold"
+            >
+            {indexData[0].data.name}
+            </h1>
+          </div><div
+            class="md:transition-all md:duration-1000 absolute left-1/2 h-72 w-72 -translate-x-1/2 md:bottom-0 md:h-96 md:w-96"
+          >
+            <div
+              class="h-full w-full rounded-full md:animate-spin-slow bg-gradient-to-tr from-purple-500 via-pink-500 to-red-500"
+            >
+            </div>
+          </div><div class="relative overflow-hidden">
+            <div
+              class="absolute left-0 top-0 z-10 hidden h-full w-[120%] bg-omega-900 origin-bottom skew-x-6 transform-gpu transition-transform duration-700"
+            >
+            </div><img
+              alt="my photo"
+              src={indexData[0].data.heroImageTransparent}
+              height="417"
+              width="462"
+              decoding="async"
+              data-nimg="1"
+              class="md:transform-gpu md:transition-all md:duration-700 mx-auto"
+              style="color: transparent;"
+            />
+          </div>
+        </div><div
+          class="md:transition-all md:duration-1000 relative z-10 mx-auto max-w-5xl p-10 text-center md:p-6 ld:grid-cols-4 prose prose-invert grid grid-cols-2 lg:grid-cols-4 bg-gradient-omega-900 shadow-lg divide-omega-700/30 lg:divide-x"
+        >
+        {indexData[0]?.data?.achievements?.map((ele, index) =>{
+          return(
+          <div class="md:transition-all md:duration-1000 flex-1 p-2">
+            <div class="m-0 text-[2.25rem] text-[#3B82F6] leading-10 font-bold">
+              {ele?.number}
+            </div><p class="mt-2 mb-0 text-omega-300">{ele?.text}</p>
+          </div>
+          )
+        })}          
+        </div><div
+          class="md:transition-all md:origin-left md:duration-1000 mx-auto h-px max-w-5xl bg-gradient-to-tr from-purple-500 via-pink-500 to-red-500"
+        >
+        </div><div class="my-6 md:my-12"></div><div
+          class="md:transition-all md:duration-1000 mx-auto max-w-3xl px-4 md:p-0 prose prose-invert prose-headings:my-4 first-of-type:prose-headings:mt-0 prose-p:mx-auto prose-p:max-w-prose md:prose-headings:my-6 prose-hr:mx-auto prose-hr:max-w-md"
+        >
+          <h2 class="text-[3rem]">
+            <div class="m-0 inline-flex items-baseline font-mono">
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                class="hidden shrink-0 grow-0 self-center text-omega-500 md:block"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  fill="none"
+                  stroke-linecap="square"
+                  stroke-miterlimit="10"
+                  stroke-width="48"
+                  d="M184 112l144 144-144 144"></path></svg
+              ><span
+                class="animate-typewriter overflow-hidden whitespace-nowrap text-[2rem] md:text-[3rem]"
+                >{indexData[0].data.title1}</span
+              ><div class="ml-2 -translate-y-2 animate-blink">_</div>
+            </div>
+          </h2><div class="my-3 md:my-6"></div><p>
+            {indexData[0].data.description}
+          </p>
+        </div><div class="my-6 md:my-12"></div><div class="">
+          <a
+            class="relative inline-flex items-center justify-center leading-normal no-underline group cursor-pointer select-none focus:outline-none peer md:peer-even:ml-6"
+            href={indexData[0]?.data?.resume}
+          download
+            ><div
+              class="z-10 h-full w-full border-4 border-transparent group-active:border-alpha flex transform-gpu transition-transform not-prose font-mono py-5 px-10 text-lg hover:translate-x-2 hover:translate-y-2 bg-white text-black"
+            >
+              <span class="mx-auto"><p>Download Resume</p></span>
+            </div><div
+              class="absolute h-full w-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 top-2 left-2"
+            >
+            </div></a
+          >
+        </div>
+        <div class="mt-16 hidden px-4 md:block">
+          <div class="flex h-12 flex-wrap items-center justify-between">
+            <div class="mb-4 w-full lg:mb-0 lg:w-auto text-white text-[1.875rem] leading-9 font-bold"
+            >
+              Trusted By
+            </div>
+            {indexData[0]?.data?.clientsLogo?.map((ele) =>{
+              return(
+              <div class="md:transition-all md:duration-1000">
+                <img
+                    src={ele?.src}
+                    alt={ele?.alt}
+                    class="h-12 w-36 fill-current text-omega-500"
+                  />
+            </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="w-[1280px]">
+    </div> -->
+  </div>

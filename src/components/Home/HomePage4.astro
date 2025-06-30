@@ -1,0 +1,100 @@
+---
+const {indexData} = Astro.props;
+---
+
+<div class="mx-auto my-auto">
+    <div class="items-center py-10 md:p-10 lg:p-20">
+      <div class="text-center">
+        <div
+          class="inline-flex items-center justify-center space-x-2 bg-[#0946AA] py-2 px-4 text-white text-[1rem]"
+        >
+          <svg
+            stroke="currentColor"
+            fill="none"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-xl"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"
+            ></path></svg
+          ><span class="font-bold">{indexData[0].data.trustedBy}</span>
+        </div>
+        <div class="my-6 md:my-12"></div><div
+          class="md:transition-all md:duration-1000 mx-auto max-w-3xl px-4 md:p-0 prose prose-invert prose-headings:my-4 first-of-type:prose-headings:mt-0 prose-p:mx-auto prose-p:max-w-prose md:prose-headings:my-6 prose-hr:mx-auto prose-hr:max-w-md"
+        >
+          <h1
+            class="!text-[2.5rem] !md:text-[3.75rem] leading-none font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text"
+          >
+            <em>{indexData[0].data.name}</em>
+          </h1>
+          <h2 class="!text-[2rem] !md:text-[3rem]">
+            <div class="m-0 inline-flex items-baseline font-mono">
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 512 512"
+                class="hidden shrink-0 grow-0 self-center text-omega-500 md:block"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+                ><path
+                  fill="none"
+                  stroke-linecap="square"
+                  stroke-miterlimit="10"
+                  stroke-width="48"
+                  d="M184 112l144 144-144 144"></path></svg
+              ><span
+                class="animate-typewriter overflow-hidden whitespace-nowrap"
+                >{indexData[0].data.title1}</span
+              ><div class="ml-2 -translate-y-2 animate-blink">_</div>
+            </div>
+          </h2>
+          <div class="text-[1.5rem] leading-8 font-bold">
+            <span>Based in {indexData[0].data.based}</span>
+          </div>
+          <div
+            class="h-px w-full bg-gradient-to-tr from-purple-500 via-pink-500 to-red-500 my-3 md:my-6 max-w-sm mx-auto"
+          >
+          </div>
+          <div class="my-3 md:my-6"></div><p>
+            {indexData[0].data.description}
+          </p>
+        </div><div class="my-6 md:my-12"></div>
+        <div>
+          <a
+            class="relative inline-flex items-center justify-center leading-normal no-underline group cursor-pointer select-none focus:outline-none peer md:peer-even:ml-6"
+            href={indexData[0]?.data?.resume}
+          download
+            ><div
+              class="z-10 h-full w-full border-4 border-transparent group-active:border-alpha flex transform-gpu transition-transform not-prose font-mono py-5 px-10 text-lg hover:translate-x-2 hover:translate-y-2 bg-white text-black"
+            >
+              <span class="mx-auto"><p class="text-[1rem] md:text-[1.125rem]">Download Resume</p></span>
+            </div><div
+              class="absolute h-full w-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 top-2 left-2"
+            >
+            </div></a
+          >
+        </div>
+        <div
+          class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-black mt-8 md:transition-all md:duration-1000 relative z-10 mx-auto max-w-5xl p-10 text-center md:p-6 ld:grid-cols-4 prose prose-invert grid grid-cols-2 lg:grid-cols-4 bg-gradient-omega-900 shadow-lg divide-omega-700/30 lg:divide-x"
+        >
+        {indexData[0]?.data?.achievements?.map((ele, index) =>{
+          return(
+          <div class="md:transition-all md:duration-1000 flex-1 p-2">
+            <h3 class="m-0 text-[2.25rem] text-black leading-10 font-bold">
+              {ele?.number}
+            </h3><p class="mt-2 mb-0 text-omega-300">{ele?.text}</p>
+          </div>
+          );
+        })}
+          
+        </div>
+      </div>
+    </div>
+  </div>

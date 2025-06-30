@@ -1,0 +1,16 @@
+---
+import HomePage1 from "../components/Home/HomePage1.astro";
+import HomePage2 from "../components/Home/HomePage2.astro";
+import HomePage3 from "../components/Home/HomePage3.astro";
+import HomePage4 from "../components/Home/HomePage4.astro";
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+const indexData = await getCollection("personalInfo");
+---
+
+<Layout title="Resume07 | Index">
+{ indexData[0]?.data?.homePage === "Home Page 1" && <HomePage1 indexData={indexData} />}
+{ indexData[0]?.data?.homePage === "Home Page 2" && <HomePage2 indexData={indexData} />}
+{ indexData[0]?.data?.homePage === "Home Page 3" && <HomePage3 indexData={indexData} />}
+{ indexData[0]?.data?.homePage === "Home Page 4" && <HomePage4 indexData={indexData} />}  
+</Layout>

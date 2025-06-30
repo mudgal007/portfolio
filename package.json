@@ -1,0 +1,38 @@
+{
+  "name": "resume07",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "tinacms dev -c 'astro dev'",
+    "host": "tinacms dev -c 'astro dev --host'",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --host",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/prism": "^3.0.0",
+    "@astrojs/react": "^3.0.10",
+    "@astrojs/tailwind": "^5.1.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "astro": "^4.4.13",
+    "clsx": "^2.1.0",
+    "prism-themes": "^1.9.0",
+    "prismjs": "^1.29.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
+    "react-intersection-observer": "^9.8.1",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.1",
+    "tinacms": "^1.6.0"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^1.5.42",
+    "autoprefixer": "^10.4.18"
+  }
+}

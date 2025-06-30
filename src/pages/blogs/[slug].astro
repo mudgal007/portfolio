@@ -1,0 +1,179 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import SocialSharing from "../../components/jsx/SocialSharing";
+const allCategories = await Astro.glob("../../content/categories/*.md")
+const allAuthors = await Astro.glob("../../content/authors/*.md")
+export async function getStaticPaths() {
+  const posts = await getCollection("blogCards");
+  return posts.map((post) => {
+    const { slug } = post;
+    return {
+      params: { slug },
+      props: post,
+    };
+  });
+}
+const slug = Astro.params;
+const pageData = Astro.props?.data;
+
+const categoryData = allCategories?.find((category) => category.file?.includes(pageData?.categories))
+const authorsData = allAuthors?.find((author) => author.file?.includes(pageData?.author))
+const categories = categoryData.frontmatter
+const author = authorsData.frontmatter
+const { createdAt, image, description, heading, paragraphList} = pageData;
+const socialSharing = await getCollection("socialLinks")
+const footer = await getCollection("footer")
+
+
+---
+
+
+<Layout title="Resume07 | Blogs">
+  <div
+      id="toast-container"
+      class="fixed right-0 top-0 max-w-400px z-1000 p-10">
+      <div
+        id="toast"
+        class="hidden bg-[#1E1E21] font-sans text-pink-500  mb-[10px] font-bold text-xl rounded-md px-4 py-4 z-10000">
+      </div>
+    </div>
+  <div class="relative mx-auto my-auto w-full p-4 pb-20 lg:p-20">
+    <div class="">
+       <header class="mx-auto max-w-3xl space-y-10 text-center prose prose-invert">
+          <div><span class="inline-block select-none px-3 py-1 uppercase no-underline bg-beta/10 text-beta hover:bg-beta/20 m-0.5 font-mono text-sm lg:mx-1">{categories?.categoryName}</span></div>
+          <h1 class="mb-0 !text-[2.25rem] !md:text-[4rem]">{pageData?.title}</h1>
+          <div class="flex items-center justify-center">
+             <div class="basis-1/3 text-right">By <strong>{author?.name}</strong></div>
+             <div class="not-prose mx-6 box-content h-24 w-24 overflow-hidden rounded-full border-4 border-alpha bg-alpha">
+                <div class="relative overflow-hidden h-full w-full">
+                   <div class="absolute left-0 top-0 z-10 hidden h-full w-[120%] bg-omega-900 origin-bottom skew-x-6 transform-gpu transition-transform duration-700"></div>
+                   <img alt="Picture of the author" sizes="100vw"  src={author?.image} decoding="async" data-nimg="fill" class="md:transform-gpu md:transition-all md:duration-700 rounded-full object-cover" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                </div>
+             </div>
+             <div class="basis-1/3 text-left">
+                <dl>
+                   <dt class="sr-only">Published on</dt>
+                   <dd class="inline !pl-0"><time datetime="2023-11-21">{createdAt ? new Date(createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</time></dd>
+                </dl>
+             </div>
+          </div>
+       </header>
+       <div class="not-prose mt-6 text-center md:mt-12">
+          <div class="grid grid-cols-4 grid-rows-3 gap-4">
+             <div class="group relative col-span-full row-span-full">
+                <div class="relative overflow-hidden h-full w-full aspect-w-16 aspect-h-9">
+                   <div class="absolute left-0 top-0 z-10 hidden h-full w-[120%] bg-omega-900 origin-bottom skew-x-6 transform-gpu transition-transform duration-700"></div>
+                   <img alt="image alt attribute" sizes="(min-width: 1120px) 1120px, 33vw"  src={image} decoding="async" data-nimg="fill" class="md:transform-gpu md:transition-all md:duration-700 object-cover" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="mt-6 grid gap-6 md:mt-12 md:grid-cols-[auto_3fr_auto] md:gap-0">
+          <div>
+             <div class="prose prose-invert flex  items-center space-x-2 pt-6 md:flex-col md:space-x-0 md:space-y-2 sticky left-10 top-12 z-10">                
+                {socialSharing?.map((ele) =>{
+                  return(
+                  <SocialSharing ele={ele}  client:only/>
+                  )
+                })}               
+             </div>
+          </div>
+          <div class="prose prose-invert mx-auto max-w-prose prose-pre:max-w-[90vw]">
+              <p>{description}</p> 
+              <div class="text-[1.5rem] md:text-[2.25rem] font-bold">{heading}</div>
+              {paragraphList?.map((ele) =>{
+                return(
+                  <p>{ele?.text}</p>
+                );
+              })}  
+            </div>            
+       </div>
+       <div class="h-px w-full bg-gradient-to-r from-accent via-beta to-alpha my-20"></div>
+       <div class="mx-auto max-w-lg">
+          <div class="text-center">
+             <div class="prose dark:prose-invert">
+                <div class="text-[1.5rem] md:text-[2.25rem] font-bold"><span class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-transparent bg-clip-text">{footer[0].data?.text1}</span></div>
+                <div class="text-[1.125rem] md:text-[1.25rem] font-bold">{footer[0].data?.text2}</div>
+                <small>{footer[0].data?.text3}</small>
+             </div>
+             <form id="contact" method="POST" class="relative mx-auto my-6 flex items-start justify-between">
+                <div class="mr-3 inline-block grow">
+                   <input type="text" name="email" class="block w-full border-0 py-3 px-4 border-b bg-omega-700/20  placeholder-omega-400 border-accent focus:ring-accent-500 placeholder:text-white text-white" placeholder="Johndoe@example.com" aria-label="email address">
+                   <input type="hidden" name="access_key" value="1ea9e9ba-0fc0-48fd-8a85-5f4f2137bf7c">
+                   <div class="absolute bottom-full left-0 z-10"></div>
+                </div>
+                <button class="relative inline-flex items-center justify-center leading-normal no-underline group cursor-pointer select-none focus:outline-none peer md:peer-even:ml-6" type="submit">
+                   <div class="z-10 h-full w-full border-4 border-transparent group-active:border-alpha flex transform-gpu transition-transform not-prose font-mono py-2 px-4 text-sm hover:translate-x-1 hover:translate-y-1 bg-white text-black"><span class="mx-auto">Subscribe</span></div>
+                   <div class="absolute h-full w-full bg-gradient-to-r from-alpha via-alpha-300 to-beta top-1 left-1"></div>
+                </button>
+             </form>             
+          </div>
+       </div>
+    </div>
+ </div>
+</Layout>
+
+<script>
+  function showToast(message: string): void {
+    const toastElement: HTMLElement | null = document.getElementById("toast");
+
+    if (toastElement) {
+      // Update the content of the toast
+      toastElement.innerHTML = message;
+      toastElement.classList.remove("hidden");
+
+      // Automatically remove the toast after a delay
+      setTimeout(() => {
+        // Clear the content and remove the styling class
+        toastElement.innerHTML = "";
+        toastElement.classList.add("hidden");
+      }, 3000); // Adjust the delay as needed
+    } else {
+      console.error("Toast element not found");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form: HTMLFormElement | null = document.getElementById(
+      "contact"
+    ) as HTMLFormElement;
+
+    const handleFormSubmission = async (event: Event): Promise<void> => {
+      // prevent page from reloading
+      event.preventDefault();
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: new FormData(event.target as HTMLFormElement),
+          mode: "no-cors",
+        });
+        form.reset();
+        setTimeout(() => {
+          // Show a success toast message
+          showToast("Form submitted");
+        }, 3000);
+      } catch (error) {
+        console.error("Error on submit:", error);
+      }
+    };
+
+    // add the submission event listener
+    if (form) {
+      form.addEventListener("submit", handleFormSubmission, true);
+    }
+  });
+</script>
+
+<style>
+  #toast {
+    transform: translateY(10px);
+    transition:
+      opacity 0.5s ease-in-out,
+      transform 1s ease-in-out;
+  }
+
+  #toast:not(.hidden) {
+    opacity: 1;
+  }
+</style>../../components/jsx/SocialSharing
